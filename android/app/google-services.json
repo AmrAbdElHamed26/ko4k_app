@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "679037391262",
+    "firebase_url": "https://ko4k-bff8a-default-rtdb.firebaseio.com",
+    "project_id": "ko4k-bff8a",
+    "storage_bucket": "ko4k-bff8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679037391262:android:a2dbab3ead9dc7c44a068f",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWX9UtTLHphnGwBs5fNaJ7-PXW4Gsq9lI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
