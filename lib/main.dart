@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'core/services/service_locator.dart';
 import 'firebase_options.dart';
 import 'authentication_module/presentation_layer/screens/authentication_screen.dart';
 
@@ -9,16 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
-  return users
-      .add({
-    'full_name': 'fullName', // John Doe
-    'company': 'company', // Stokes and Sons
-    'age': 'age' // 42
-  })
-      .then((value) => print("User Added"))
-      .catchError((error) => print("Failed to add user: $error"));
+  ServiceLocator().init();
   runApp(const MyApp());
 }
 
@@ -27,9 +20,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
 
-      home: LoginScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_ , child) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: LoginScreen(),
+        );
+      },
     );
   }
 }
