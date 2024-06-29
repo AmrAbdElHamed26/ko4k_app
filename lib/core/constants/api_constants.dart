@@ -10,3 +10,11 @@ class RemoteAuthenticationDataConstants {
   static const k7esabatRole = "7esabat";
 
 }
+
+
+class RemoteProductsDataConstants{
+  static const kName = "productName";
+  static const kNumberOfPieces = "numberOfPieces";
+  static const kPrice = "price";
+
+}

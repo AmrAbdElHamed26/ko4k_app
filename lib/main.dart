@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ko4k/admin_module/presentation_layer/controller/admin_bloc.dart';
 import 'package:ko4k/admin_module/presentation_layer/screens/admin_screen.dart';
 import 'package:ko4k/authentication_module/presentation_layer/controller/authentication_bloc.dart';
 import 'package:ko4k/core/constants/local_data_base_constances.dart';
@@ -38,8 +39,13 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return   MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: BlocProvider(
-            create: (context) => AuthenticationBloc(getIt()),
+          home: MultiBlocProvider(
+
+            providers: [
+              BlocProvider(create: (context) => AuthenticationBloc(getIt()),),
+              BlocProvider(create: (context) => AdminBloc(getIt() ,getIt() )..add(GetAllProductsEvent(),),)
+            ],
+
             child:   getCurrentScreen(),
           ),
         );
