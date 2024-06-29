@@ -8,11 +8,13 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextEditingController controller ;
 
+  final TextInputType textInputType ;
   const CustomTextField({
     Key? key,
     required this.hintText,
     required this.controller ,
     this.obscureText = false,
+    this.textInputType = TextInputType.text ,
     this.onChanged,
     this.validator,
     this.suffixIcon,
@@ -21,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: textInputType,
       controller: controller,
       obscureText: obscureText,
       onChanged: onChanged,
