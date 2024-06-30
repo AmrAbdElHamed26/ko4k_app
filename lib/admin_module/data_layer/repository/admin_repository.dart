@@ -35,5 +35,15 @@ class AdminRepository extends BaseAdminRepository  {
     }
   }
 
+  @override
+  Future<Either<Failure, void>> deleteProductUSeCase(String productId) async{
+    try {
+      var result = await _baseAdminRemoteDataSource.deleteProduct( productId);
+      return Right(result);
+    } catch (e) {
+      return  Left(ServerFailure((e as Failure).message));
+    }
+  }
+
 
 }

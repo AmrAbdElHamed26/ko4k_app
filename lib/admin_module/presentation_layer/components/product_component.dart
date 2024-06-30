@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ko4k/admin_module/data_layer/models/product_model.dart';
+import 'package:ko4k/admin_module/presentation_layer/controller/admin_bloc.dart';
 
 import '../../../core/components/custom_text.dart';
 
@@ -25,19 +27,21 @@ class ProductComponent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
 
-            TextButton(onPressed: (){}, child: const Icon(Icons.delete_forever_sharp , color: Colors.red,) , ),
+            TextButton(onPressed: (){
+              BlocProvider.of<AdminBloc>(context).add(DeleteProductEvent(productId: currentProduct.docId));
+            }, child: const Icon(Icons.delete_forever_sharp , color: Colors.red,) , ),
             SizedBox(width: screenWidth*.03.sp,),
-            customText("جنيه  "),
-            customText(currentProduct.price.toString()),
+            customText("ج  ", fontWeight: FontWeight.bold),
+            Expanded(flex : 2 ,child: customText(currentProduct.price.toString())),
             SizedBox(
               width: screenWidth * .1.sp,
             ),
-            customText("قطعة  "),
-            customText("${currentProduct.numberOfPieces.toString()}  "),
+            customText("ق  " , fontWeight: FontWeight.bold),
+            Expanded(flex : 1 , child: customText("${currentProduct.numberOfPieces.toString()}  ")),
             SizedBox(
               width: screenWidth * .1.sp,
             ),
-            customText(currentProduct.name),
+            Expanded(flex : 2 ,child: customText(currentProduct.name)),
           ],
         ),
       ),

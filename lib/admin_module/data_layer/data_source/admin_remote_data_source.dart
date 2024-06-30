@@ -7,7 +7,10 @@ import '../../../core/services/cloud_fire_store_services.dart';
 
 abstract class BaseAdminRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
-  Future<void>addNewProduct(ProductModel newProduct);
+
+  Future<void> addNewProduct(ProductModel newProduct);
+
+  Future<void> deleteProduct(String productId);
 }
 
 class AdminRemoteDataSource extends BaseAdminRemoteDataSource {
@@ -37,12 +40,30 @@ class AdminRemoteDataSource extends BaseAdminRemoteDataSource {
           .collection('products')
           .doc();
 
-      ProductModel productModel = ProductModel(name: newProduct.name, docId: docRef.id, numberOfPieces: newProduct.numberOfPieces, price: newProduct.price);
+      ProductModel productModel = ProductModel(
+          name: newProduct.name,
+          docId: docRef.id,
+          numberOfPieces: newProduct.numberOfPieces,
+          price: newProduct.price);
 
       await docRef.set(productModel.toJson());
       showSuccessToast("تم اضافه المنتج بنجاح");
     } catch (e) {
       showErrorToast("خطا في الاضافه: $e");
+    }
+  }
+
+  @override
+  Future<void> deleteProduct(String productId) async {
+    try {
+      CloudFireStoreServices cloudFireStoreServices = CloudFireStoreServices();
+      cloudFireStoreServices.deleteSpecificDocFromCollection(
+          CloudFireStoreServices.cloudFireBaseCollections
+              .collection(RemoteProductsDataConstants.kProductsCollection),
+          productId);
+      showSuccessToast("تم الحذف بنجاح");
+    } catch (e) {
+      showErrorToast("خطا في الحذف: $e");
     }
   }
 }

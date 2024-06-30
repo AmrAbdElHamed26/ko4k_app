@@ -33,7 +33,9 @@ class AdminScreen extends StatelessWidget {
               icon: const Icon(Icons.login, color: Colors.white)),
         ],
       ),
-      body: SizedBox(
+      body: BlocProvider(
+  create: (context) => getIt<AdminBloc>()..add(GetAllProductsEvent()),
+  child: SizedBox(
         width: double.infinity,
         child: BlocBuilder<AdminBloc, AdminState>(
           builder: (context, state) {
@@ -50,7 +52,12 @@ class AdminScreen extends StatelessWidget {
                           backgroundColor: Colors.green,
                         ),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddNewProduct()));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddNewProduct(adminBloc: getIt<AdminBloc>()),
+                            ),
+                          );
                         },
                         child: customText("اضافة منتج",
                            ),
@@ -84,6 +91,7 @@ class AdminScreen extends StatelessWidget {
           },
         ),
       ),
+),
     );
   }
 }

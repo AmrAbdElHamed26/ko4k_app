@@ -8,6 +8,7 @@ abstract class BaseAdminRepository {
 
   Future<Either<Failure, List<ProductModel>>> getAlProductsUseCase();
   Future<Either<Failure, void>> addNewProductUSeCase(ProductModel newProduct);
+  Future<Either<Failure, void>> deleteProductUSeCase(String productId);
 
 
 }

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:ko4k/admin_module/domain_layer/use_cases/add_new_product_use_case.dart';
+import 'package:ko4k/admin_module/domain_layer/use_cases/delete_product_use_case.dart';
 import 'package:ko4k/admin_module/domain_layer/use_cases/get_all_products_use_case.dart';
 import 'package:ko4k/admin_module/presentation_layer/controller/admin_bloc.dart';
 import 'package:ko4k/authentication_module/domain_layer/use_cases/sign_in_with_email_and_password_use_case.dart';
@@ -22,7 +23,7 @@ class ServiceLocator {
 
   void _registerBlocs() {
      getIt.registerFactory(() => AuthenticationBloc(getIt()));
-     getIt.registerFactory(() => AdminBloc(getIt() , getIt()));
+     getIt.registerLazySingleton(() => AdminBloc(getIt() , getIt() , getIt()));
 
   }
 
@@ -53,6 +54,9 @@ class ServiceLocator {
      );
      getIt.registerLazySingleton<AddNewProductUseCase>(
            () => AddNewProductUseCase(getIt()),
+     );
+     getIt.registerLazySingleton<DeleteProductUseCase>(
+           () => DeleteProductUseCase(getIt()),
      );
   }
 }

@@ -42,8 +42,7 @@ class MyApp extends StatelessWidget {
           home: MultiBlocProvider(
 
             providers: [
-              BlocProvider(create: (context) => AuthenticationBloc(getIt()),),
-              BlocProvider(create: (context) => AdminBloc(getIt() ,getIt() )..add(GetAllProductsEvent(),),)
+              BlocProvider(create: (context) => getIt<AuthenticationBloc>(),),
             ],
 
             child:   getCurrentScreen(),
