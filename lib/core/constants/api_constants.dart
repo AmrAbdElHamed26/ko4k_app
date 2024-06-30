@@ -20,3 +20,10 @@ class RemoteProductsDataConstants{
   static const kPrice = "price";
 
 }
+
+class RemoteDailyReportDataConstants{
+  static const kDailyReportCollection = "dailyReport";
+
+  
+
+}

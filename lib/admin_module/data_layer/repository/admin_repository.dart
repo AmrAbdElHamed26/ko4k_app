@@ -1,7 +1,9 @@
 
+import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:ko4k/admin_module/data_layer/models/product_model.dart';
+import 'package:ko4k/admin_module/data_layer/models/sold_product_model.dart';
 
 import 'package:ko4k/core/error/failure.dart';
 
@@ -39,6 +41,26 @@ class AdminRepository extends BaseAdminRepository  {
   Future<Either<Failure, void>> deleteProductUSeCase(String productId) async{
     try {
       var result = await _baseAdminRemoteDataSource.deleteProduct( productId);
+      return Right(result);
+    } catch (e) {
+      return  Left(ServerFailure((e as Failure).message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Timestamp>> getDateFromFirebaseUseCase()async {
+    try {
+      var result = await _baseAdminRemoteDataSource.getTimeFromFirebase( );
+      return Right(result);
+    } catch (e) {
+      return  Left(ServerFailure((e as Failure).message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<SoldProductModel>>> getDailyReportUseCase(String currentDay)async {
+    try {
+      var result = await _baseAdminRemoteDataSource.getSoldProducts(currentDay);
       return Right(result);
     } catch (e) {
       return  Left(ServerFailure((e as Failure).message));
