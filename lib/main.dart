@@ -8,6 +8,7 @@ import 'package:ko4k/admin_module/presentation_layer/screens/admin_screen.dart';
 import 'package:ko4k/authentication_module/presentation_layer/controller/authentication_bloc.dart';
 import 'package:ko4k/core/constants/local_data_base_constances.dart';
 import 'package:ko4k/core/utils/enums.dart';
+import 'core/services/bloc_observer.dart';
 import 'core/services/service_locator.dart';
 import 'firebase_options.dart';
 import 'authentication_module/presentation_layer/screens/authentication_screen.dart';
@@ -23,6 +24,7 @@ void main() async {
   );
   ServiceLocator().init();
   preferences = await SharedPreferences.getInstance();
+  Bloc.observer = MyBlocObserver();
 
   runApp(const MyApp());
 }
@@ -42,8 +44,7 @@ class MyApp extends StatelessWidget {
           home: MultiBlocProvider(
 
             providers: [
-              BlocProvider(create: (context) => AuthenticationBloc(getIt()),),
-              BlocProvider(create: (context) => AdminBloc(getIt() ,getIt() )..add(GetAllProductsEvent(),),)
+              BlocProvider(create: (context) => getIt<AuthenticationBloc>(),),
             ],
 
             child:   getCurrentScreen(),
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
     String currentRole = preferences.get(LocalDataBaseConstants.kCurrentRole).toString();
 
     if(currentRole == UserRoles.admin.toString()){
-      return const AdminScreen();
+      return   AdminScreen();
     }
    /* else if(currentRole == UserRoles.ko4k.toString()){
 

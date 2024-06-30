@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state.currentUserRole == UserRoles.admin) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const AdminScreen()),
+              MaterialPageRoute(builder: (context) =>   AdminScreen()),
             );
           }
         },

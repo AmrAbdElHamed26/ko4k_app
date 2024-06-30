@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ko4k/admin_module/data_layer/models/product_model.dart';
+import 'package:ko4k/admin_module/data_layer/models/sold_product_model.dart';
 import 'package:ko4k/admin_module/presentation_layer/controller/admin_bloc.dart';
 
 import '../../../core/components/custom_text.dart';
 
-class ProductComponent extends StatelessWidget {
-  const ProductComponent({super.key, required this.currentProduct});
+class SoldProductComponent extends StatelessWidget {
+  const SoldProductComponent({super.key, required this.name , required this.price , required this.numberOfPieces});
 
-  final ProductModel currentProduct;
+  final String name ;
+  final int numberOfPieces ;
+  final double price ;
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +30,18 @@ class ProductComponent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
 
-            TextButton(onPressed: (){
-              BlocProvider.of<AdminBloc>(context).add(DeleteProductEvent(productId: currentProduct.docId));
-            }, child: const Icon(Icons.delete_forever_sharp , color: Colors.red,) , ),
             SizedBox(width: screenWidth*.03.sp,),
             customText("ج  ", fontWeight: FontWeight.bold),
-            Expanded(flex : 2 ,child: customText(currentProduct.price.toString())),
+            Expanded(flex : 2 ,child: customText(price.toString())),
             SizedBox(
               width: screenWidth * .1.sp,
             ),
             customText("ق  " , fontWeight: FontWeight.bold),
-            Expanded(flex : 1 , child: customText("${currentProduct.numberOfPieces.toString()}  ")),
+            Expanded(flex : 1 , child: customText("${numberOfPieces.toString()}  ")),
             SizedBox(
               width: screenWidth * .1.sp,
             ),
-            Expanded(flex : 2 ,child: customText(currentProduct.name)),
+            Expanded(flex : 3 ,child: customText(name)),
           ],
         ),
       ),

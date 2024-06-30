@@ -13,8 +13,17 @@ class RemoteAuthenticationDataConstants {
 
 
 class RemoteProductsDataConstants{
+  static const kProductsCollection = "products";
+
   static const kName = "productName";
   static const kNumberOfPieces = "numberOfPieces";
   static const kPrice = "price";
+
+}
+
+class RemoteDailyReportDataConstants{
+  static const kDailyReportCollection = "dailyReport";
+
+  
 
 }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ko4k/core/components/custom_toast.dart';
 
 abstract class BaseCloudFireStoreServices {
   Future<void> addDocToSpecificCollection(var collection, var document);
@@ -8,6 +9,8 @@ abstract class BaseCloudFireStoreServices {
   Future<String?> getDocumentIdIfFieldExists(var collection, var field, var value);
 
   Future<dynamic> getFieldDataFromDocument(var doc, var field);
+  
+  Future<void> deleteSpecificDocFromCollection(var collection , String docId);
 }
 
 class CloudFireStoreServices extends BaseCloudFireStoreServices {
@@ -54,6 +57,15 @@ class CloudFireStoreServices extends BaseCloudFireStoreServices {
     } catch (error) {
 
       return null;
+    }
+  }
+
+  @override
+  Future<void> deleteSpecificDocFromCollection(collection, String docId)async {
+    try {
+      await cloudFireBaseCollections.collection(collection).doc(docId).delete();
+    } catch (e) {
+      throw e;
     }
   }
 }
