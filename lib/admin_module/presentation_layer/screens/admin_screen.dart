@@ -312,10 +312,10 @@ class AdminScreen extends StatelessWidget {
                               return const Center(child: CircularProgressIndicator());
                             }
                             if (snapshot.hasError) {
-                              return const Center(child: Text('Something went wrong'));
+                              return const Center(child: Text('حدث خطا حاول مجدداا'));
                             }
                             if (!snapshot.hasData) {
-                              return const Center(child: Text('No data available'));
+                              return const Center(child: Text('لاء يوجد مبيعات هذا الشهر'));
                             }
 
                             String currentMonthDoc = snapshot.data!;
@@ -330,10 +330,10 @@ class AdminScreen extends StatelessWidget {
                                   return const Center(child: CircularProgressIndicator());
                                 }
                                 if (snapshot.hasError) {
-                                  return const Center(child: Text('Something went wrong'));
+                                  return const Center(child: Text('حدث خطا حاول مجددا'));
                                 }
                                 if (!snapshot.hasData || !snapshot.data!.exists) {
-                                  return const Center(child: Text('No data available'));
+                                  return const Center(child: Text('لا يوجد مبيعات حتي الان'));
                                 }
 
                                 final data = snapshot.data!.data() as Map<String, dynamic>;
