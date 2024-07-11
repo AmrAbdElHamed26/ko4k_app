@@ -18,6 +18,8 @@ class AddNewProduct extends StatelessWidget {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
+  final TextEditingController SellingPriceController = TextEditingController();
+
   final TextEditingController numberOfPiecesController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -62,7 +64,7 @@ class AddNewProduct extends StatelessWidget {
                         validator: _validateField,
                       ),
                       SizedBox(height: screenHeight * .01.sp),
-                      customText("سعر المنتج"),
+                      customText("سعر شراء المنتج"),
                       SizedBox(height: screenHeight * .01.sp),
                       CustomTextField(
                         textInputType: TextInputType.number,
@@ -77,6 +79,15 @@ class AddNewProduct extends StatelessWidget {
                         textInputType: TextInputType.number,
                         hintText: '12 قطعة',
                         controller: numberOfPiecesController,
+                        validator: _validateField,
+                      ),
+                      SizedBox(height: screenHeight * .01.sp),
+                      customText("سعر بيع القطعه"),
+                      SizedBox(height: screenHeight * .01.sp),
+                      CustomTextField(
+                        textInputType: TextInputType.number,
+                        hintText: 'سعر البيع 3',
+                        controller: SellingPriceController,
                         validator: _validateField,
                       ),
                       SizedBox(height: screenHeight * .05.sp),
@@ -94,7 +105,7 @@ class AddNewProduct extends StatelessWidget {
                                 numberOfPieces: int.parse(
                                     numberOfPiecesController
                                         .text),
-                                price: double.parse(priceController.text));
+                                price: double.parse(priceController.text), sellingPrice: double.parse(SellingPriceController.text) );
 
                             BlocProvider.of<AdminBloc>(context).add(
                                 AddNewProductEvent(newProduct: newProduct));

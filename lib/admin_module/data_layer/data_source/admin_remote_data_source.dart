@@ -49,7 +49,7 @@ class AdminRemoteDataSource extends BaseAdminRemoteDataSource {
           name: newProduct.name,
           docId: docRef.id,
           numberOfPieces: newProduct.numberOfPieces,
-          price: newProduct.price);
+          price: newProduct.price, sellingPrice: newProduct.sellingPrice);
 
       await docRef.set(productModel.toJson());
       showSuccessToast("تم اضافه المنتج بنجاح");

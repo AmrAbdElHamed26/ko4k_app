@@ -8,7 +8,7 @@ class ProductModel extends ProductEntity {
     required super.name,
     required super.docId,
     required super.numberOfPieces,
-    required super.price,
+    required super.price, required super.sellingPrice,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -16,7 +16,7 @@ class ProductModel extends ProductEntity {
       name: json[RemoteProductsDataConstants.kName],
       docId: json['docId'],
       numberOfPieces: json[RemoteProductsDataConstants.kNumberOfPieces],
-      price: (json[RemoteProductsDataConstants.kPrice] as num).toDouble(),
+      price: (json[RemoteProductsDataConstants.kPrice] as num).toDouble(), sellingPrice: (json['sellingPrice'] as num).toDouble(),
     );
   }
 
@@ -26,6 +26,7 @@ class ProductModel extends ProductEntity {
       RemoteProductsDataConstants.kPrice: price,
       RemoteProductsDataConstants.kNumberOfPieces: numberOfPieces,
       'docId': docId,
+      'sellingPrice' : sellingPrice ,
     };
   }
 }
