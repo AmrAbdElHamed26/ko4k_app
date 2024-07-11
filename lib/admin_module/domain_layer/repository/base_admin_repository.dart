@@ -16,4 +16,6 @@ abstract class BaseAdminRepository {
   Future<Either<Failure, List<SoldProductModel>>> getDailyReportUseCase(String currentDay);
 
 
+
+
 }

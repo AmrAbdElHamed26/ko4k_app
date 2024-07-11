@@ -16,33 +16,61 @@ class ProductComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      height: screenHeight * .05.sp,
-      decoration: BoxDecoration(
-          color: const Color(0xFF1152FD).withOpacity(.2),
-          borderRadius: BorderRadius.circular(12.sp)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
 
-            TextButton(onPressed: (){
-              BlocProvider.of<AdminBloc>(context).add(DeleteProductEvent(productId: currentProduct.docId));
-            }, child: const Icon(Icons.delete_forever_sharp , color: Colors.red,) , ),
-            SizedBox(width: screenWidth*.03.sp,),
-            customText("ج  ", fontWeight: FontWeight.bold),
-            Expanded(flex : 2 ,child: customText(currentProduct.price.toString())),
-            SizedBox(
-              width: screenWidth * .1.sp,
+    void _showProductDetails() {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "${currentProduct.name}  ${currentProduct.numberOfPieces} قطعه",
+                    style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8.h),
+                  customText("سعر شراء المنتج: ${currentProduct.price} ج"),
+                  customText("سعر بيع القطعه: ${currentProduct.sellingPrice} ج"),
+                ],
+              ),
             ),
-            customText("ق  " , fontWeight: FontWeight.bold),
-            Expanded(flex : 1 , child: customText("${currentProduct.numberOfPieces.toString()}  ")),
-            SizedBox(
-              width: screenWidth * .1.sp,
-            ),
-            Expanded(flex : 2 ,child: customText(currentProduct.name)),
-          ],
+          );
+        },
+      );
+    }
+
+    return GestureDetector(
+      onTap: _showProductDetails,
+      child: Container(
+        height: screenHeight * .05.sp,
+        decoration: BoxDecoration(
+            color: const Color(0xFF1152FD).withOpacity(.2),
+            borderRadius: BorderRadius.circular(12.sp)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {
+                  BlocProvider.of<AdminBloc>(context).add(DeleteProductEvent(productId: currentProduct.docId));
+                },
+                child: const Icon(Icons.delete_forever_sharp, color: Colors.red),
+              ),
+              SizedBox(width: screenWidth * .03.sp),
+              customText("ج  ", fontWeight: FontWeight.bold),
+              Expanded(flex: 2, child: customText(currentProduct.price.toString())),
+              SizedBox(width: screenWidth * .1.sp),
+              customText("ج  ", fontWeight: FontWeight.bold),
+              Expanded(flex: 1, child: customText("${currentProduct.sellingPrice.toString()}  ")),
+              SizedBox(width: screenWidth * .1.sp),
+              Expanded(flex: 4, child: customText("${currentProduct.name}  ${currentProduct.numberOfPieces} ق ")),
+            ],
+          ),
         ),
       ),
     );
