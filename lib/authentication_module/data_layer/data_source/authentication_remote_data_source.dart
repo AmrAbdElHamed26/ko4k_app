@@ -57,20 +57,7 @@ class AuthenticationRemoteDataSource
                 RemoteAuthenticationDataConstants.kUserPassword);
 
         if (storedPassword == password) {
-          String currentRoleForUser =
-              await cloudFireStoreServices.getFieldDataFromDocument(
-                  _firebaseFirestore
-                      .collection(
-                          RemoteAuthenticationDataConstants.kUserCollection)
-                      .doc(userDocId),
-                  RemoteAuthenticationDataConstants.kUserRole);
-
-          if(currentRoleForUser == RemoteAuthenticationDataConstants.kKo4kRole){
-            return UserRoles.ko4k;
-          }
-          else {
-            return UserRoles.hesabat ;
-          }
+          return UserRoles.ko4k ;
         }
         else {
           showErrorToast('قم بالتأكد من الباسورد');

@@ -115,6 +115,7 @@ class _AddNewDataToStoreState extends State<AddNewDataToStore> {
                               } else {
                                 // Document does not exist, create a new one
                                 transaction.set(docRef, {
+                                  'docId': currentDocId, // Add docId field
                                   'name': name,
                                   'numberOfItems': numberOfItems,
                                   'sellingPrice': sellingPrice,
@@ -134,23 +135,22 @@ class _AddNewDataToStoreState extends State<AddNewDataToStore> {
 
                                 if (monthlyReportSnapshot.exists) {
                                   // Document exists, update the totalPrice
-                                  double currentTotalPrice = monthlyReportSnapshot['totalPrice'];
+                                  double currentTotalPrice = (monthlyReportSnapshot['totalPrice'] as num).toDouble();
                                   transaction.update(monthlyReportRef, {
                                     'totalPrice': currentTotalPrice + newPrice,
                                   });
                                 } else {
                                   // Document does not exist, create a new one
                                   transaction.set(monthlyReportRef, {
+                                    'docId': currentMonth, // Add docId field
                                     'totalPrice': newPrice,
                                     'month': currentMonth,
                                   });
                                 }
                               }).then((_) {
+                                newQuantity[index] = 0;
+                                setState(() {});
 
-                                newQuantity[index] = 0 ;
-                                setState(() {
-
-                                });
                                 showSuccessToast("تمت الاضافه بنجاح");
                               }).catchError((error) {
                                 showErrorToast("خطا قم بالتكرار مجداا");
@@ -161,6 +161,7 @@ class _AddNewDataToStoreState extends State<AddNewDataToStore> {
                               print("Transaction failed: $error");
                             });
                           },
+
                           child: Text("اضافه"),
                         ),
                       ],

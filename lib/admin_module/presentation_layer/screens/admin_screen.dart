@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ko4k/admin_module/presentation_layer/controller/admin_bloc.dart';
 import 'package:ko4k/admin_module/presentation_layer/screens/add_new_product.dart';
+import 'package:ko4k/authentication_module/presentation_layer/screens/authentication_screen.dart';
 import 'package:ko4k/core/components/custom_text.dart';
 import 'package:ko4k/core/constants/local_data_base_constances.dart';
 import 'package:ko4k/core/services/service_locator.dart';
@@ -55,7 +56,10 @@ class AdminScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                preferences.remove(LocalDataBaseConstants.kCurrentRole);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
+              },
               icon: const Icon(Icons.login, color: Colors.white)),
         ],
       ),
@@ -338,9 +342,9 @@ class AdminScreen extends StatelessWidget {
 
                                 final data = snapshot.data!.data() as Map<String, dynamic>;
                                 final double totalPrice =
-                                    (data['totalPrice'] as num).toDouble() ?? 0.0;
+                                    (data['totalPrice'] ?? 0 as num).toDouble() ?? 0.0;
                                 final double totalSellingPrice =
-                                    (data['totalSellingPrice'] as num).toDouble() ?? 0.0;
+                                    (data['totalSellingPrice'] ?? 0 as num).toDouble() ?? 0.0;
                                 final double netProfit = totalSellingPrice - totalPrice;
 
                                 return GestureDetector(

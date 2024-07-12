@@ -8,6 +8,7 @@ import 'package:ko4k/admin_module/presentation_layer/screens/admin_screen.dart';
 import 'package:ko4k/authentication_module/presentation_layer/controller/authentication_bloc.dart';
 import 'package:ko4k/core/constants/local_data_base_constances.dart';
 import 'package:ko4k/core/utils/enums.dart';
+import 'package:ko4k/user_module/user_screen.dart';
 import 'core/services/bloc_observer.dart';
 import 'core/services/service_locator.dart';
 import 'firebase_options.dart';
@@ -41,14 +42,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return   MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: MultiBlocProvider(
-
-            providers: [
-              BlocProvider(create: (context) => getIt<AuthenticationBloc>(),),
-            ],
-
-            child:   getCurrentScreen(),
-          ),
+          home: getCurrentScreen(),
         );
       },
     );
@@ -58,11 +52,11 @@ class MyApp extends StatelessWidget {
     String currentRole = preferences.get(LocalDataBaseConstants.kCurrentRole).toString();
 
     if(currentRole == UserRoles.admin.toString()){
-      return   AdminScreen();
+      return  AdminScreen();
     }
-   /* else if(currentRole == UserRoles.ko4k.toString()){
-
-    }*/
+    else if(currentRole == UserRoles.ko4k.toString()){
+      return const UserScreen();
+    }
     else {
       return const LoginScreen();
     }

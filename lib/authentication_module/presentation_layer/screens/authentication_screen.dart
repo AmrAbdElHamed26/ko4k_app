@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ko4k/admin_module/presentation_layer/screens/admin_screen.dart';
 import 'package:ko4k/authentication_module/presentation_layer/controller/authentication_bloc.dart';
 import 'package:ko4k/core/components/custom_text.dart';
+import 'package:ko4k/core/services/service_locator.dart';
 import 'package:ko4k/core/utils/enums.dart';
+import 'package:ko4k/user_module/user_screen.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../core/components/custom_button.dart';
 import '../../../core/components/custom_text_field.dart';
@@ -44,14 +46,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
-      body: BlocListener<AuthenticationBloc, AuthenticationState>(
+      body: BlocProvider(
+  create: (context) => getIt<AuthenticationBloc>(),
+  child: BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
-          if (state.currentUserRole == UserRoles.admin) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) =>   AdminScreen()),
-            );
+          if(state.signInWithEmailAndPasswordState == RequestState.loaded){
+            if (state.currentUserRole == UserRoles.admin) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) =>   AdminScreen()),
+              );
+            }
+            else {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) =>   const UserScreen()),
+              );
+            }
           }
+
         },
         child: SizedBox(
           width: double.infinity,
@@ -220,6 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+),
     );
   }
 }
